@@ -1,0 +1,32 @@
+import type { MetadataRoute } from "next";
+
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date()
+    },
+    {
+      url: `${baseUrl}/login`,
+      lastModified: new Date()
+    },
+    {
+      url: `${baseUrl}/register`,
+      lastModified: new Date()
+    },
+    {
+      url: `${baseUrl}/dashboard`,
+      lastModified: new Date()
+    },
+    {
+      url: `${baseUrl}/servicios`,
+      lastModified: new Date()
+    },
+    {
+      url: `${baseUrl}/reservas`,
+      lastModified: new Date()
+    }
+  ];
+}
