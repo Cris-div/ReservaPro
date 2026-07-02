@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const servicio_controller_1 = require("../controllers/servicio.controller");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const role_middleware_1 = require("../middlewares/role.middleware");
+const validation_middleware_1 = require("../middlewares/validation.middleware");
+const common_schema_1 = require("../schemas/common.schema");
+const servicio_schema_1 = require("../schemas/servicio.schema");
+const asyncHandler_1 = require("../utils/asyncHandler");
+const router = (0, express_1.Router)();
+router.post("/", auth_middleware_1.verificarToken, (0, role_middleware_1.verificarRol)("ADMIN"), (0, validation_middleware_1.validate)(servicio_schema_1.createServicioSchema), (0, asyncHandler_1.asyncHandler)(servicio_controller_1.create));
+router.get("/", (0, asyncHandler_1.asyncHandler)(servicio_controller_1.getAll));
+router.get("/:id", (0, validation_middleware_1.validate)(common_schema_1.idParamSchema), (0, asyncHandler_1.asyncHandler)(servicio_controller_1.getById));
+router.put("/:id", auth_middleware_1.verificarToken, (0, role_middleware_1.verificarRol)("ADMIN"), (0, validation_middleware_1.validate)(servicio_schema_1.updateServicioSchema), (0, asyncHandler_1.asyncHandler)(servicio_controller_1.update));
+router.delete("/:id", auth_middleware_1.verificarToken, (0, role_middleware_1.verificarRol)("ADMIN"), (0, validation_middleware_1.validate)(common_schema_1.idParamSchema), (0, asyncHandler_1.asyncHandler)(servicio_controller_1.remove));
+exports.default = router;
